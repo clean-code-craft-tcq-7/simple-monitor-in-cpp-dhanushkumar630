@@ -16,20 +16,30 @@ void Warning(const std::string& message) {
   }
 }
 
-int vitalsOk(float temperature, float pulseRate, float spo2) {
-  if (temperature > 102 || temperature < 95) {
+bool Temperature_check(float temperature) {
+  if (temperature < 95 || temperature > 102) {
     Warning("Temperature is critical!");
-    return 0;
+    return false;
   }
+  return true;
+}
 
+bool Pulse_check(float pulseRate) {
   if (pulseRate < 60 || pulseRate > 100) {
     Warning("Pulse Rate is out of range!");
-    return 0;
+    return false;
   }
+  return true;
+}
 
+bool Oxygen_check(float spo2) {
   if (spo2 < 90) {
     Warning("Oxygen Saturation out of range!");
-    return 0;
+    return false;
   }
-  return 1;
+  return true;
+}
+
+int vitalsOk(float temperature, float pulseRate, float spo2) {
+  return Temperature_check(temperature) && Pulse_check(pulseRate) && Oxygen_check(spo2);
 }
