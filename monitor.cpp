@@ -5,7 +5,7 @@
 #include <iostream>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
-void Warning(const string& message) {
+void Warning(const std::string& message) {
   cout << message << "\n";
   for (int i = 0; i < 6; i++) {
     cout << "\r* " << flush;
@@ -14,7 +14,6 @@ void Warning(const string& message) {
     sleep_for(seconds(1));
   }
 }
-
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
    if (temperature > 102 || temperature < 95) {
