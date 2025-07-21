@@ -3,6 +3,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 void Warning(const std::string& message) {
@@ -16,7 +17,7 @@ void Warning(const std::string& message) {
 }
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-   if (temperature > 102 || temperature < 95) {
+  if (temperature > 102 || temperature < 95) {
     Warning("Temperature is critical!");
     return 0;
   }
