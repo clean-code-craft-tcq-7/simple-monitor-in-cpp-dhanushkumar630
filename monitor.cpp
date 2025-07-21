@@ -3,36 +3,47 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
-int vitalsOk(float temperature, float pulseRate, float spo2) {
-  if (temperature > 102 || temperature < 95) {
-    cout << "Temperature is critical!\n";
-    for (int i = 0; i < 6; i++) {
-      cout << "\r* " << flush;
-      sleep_for(seconds(1));
-      cout << "\r *" << flush;
-      sleep_for(seconds(1));
-    }
-    return 0;
-  } else if (pulseRate < 60 || pulseRate > 100) {
-    cout << "Pulse Rate is out of range!\n";
-    for (int i = 0; i < 6; i++) {
-      cout << "\r* " << flush;
-      sleep_for(seconds(1));
-      cout << "\r *" << flush;
-      sleep_for(seconds(1));
-    }
-    return 0;
-  } else if (spo2 < 90) {
-    cout << "Oxygen Saturation out of range!\n";
-    for (int i = 0; i < 6; i++) {
-      cout << "\r* " << flush;
-      sleep_for(seconds(1));
-      cout << "\r *" << flush;
-      sleep_for(seconds(1));
-    }
-    return 0;
+//Funtion which displays warning message
+void Warning(const std::string& message) {
+  cout << message << "\n";
+  for (int i = 0; i < 6; i++) {
+    cout << "\r* " << flush;
+    sleep_for(seconds(1));
+    cout << "\r *" << flush;
+    sleep_for(seconds(1));
   }
-  return 1;
+}
+
+//Funtion which checks temparture range
+bool Temperature_check(float temperature) {
+  if (temperature < 95 || temperature > 102) {
+    Warning("Temperature is critical!");
+    return false;
+  }
+  return true;
+}
+
+//Funtion which checks Pulse
+bool Pulse_check(float pulseRate) {
+  if (pulseRate < 60 || pulseRate > 100) {
+    Warning("Pulse Rate is out of range!");
+    return false;
+  }
+  return true;
+}
+
+//Funtion which checks oxygen range
+bool Oxygen_check(float spo2) {
+  if (spo2 < 90) {
+    Warning("Oxygen Saturation out of range!");
+    return false;
+  }
+  return true;
+}
+
+int vitalsOk(float temperature, float pulseRate, float spo2) {
+  return Temperature_check(temperature) && Pulse_check(pulseRate) && Oxygen_check(spo2);
 }
