@@ -6,6 +6,7 @@
 #include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
+//Funtion which displays warning message
 void Warning(const std::string& message) {
   cout << message << "\n";
   for (int i = 0; i < 6; i++) {
@@ -16,6 +17,7 @@ void Warning(const std::string& message) {
   }
 }
 
+//Funtion which checks temparture range
 bool Temperature_check(float temperature) {
   if (temperature < 95 || temperature > 102) {
     Warning("Temperature is critical!");
@@ -24,6 +26,7 @@ bool Temperature_check(float temperature) {
   return true;
 }
 
+//Funtion which checks Pulse
 bool Pulse_check(float pulseRate) {
   if (pulseRate < 60 || pulseRate > 100) {
     Warning("Pulse Rate is out of range!");
@@ -32,6 +35,7 @@ bool Pulse_check(float pulseRate) {
   return true;
 }
 
+//Funtion which checks oxygen range
 bool Oxygen_check(float spo2) {
   if (spo2 < 90) {
     Warning("Oxygen Saturation out of range!");
